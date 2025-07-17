@@ -16,6 +16,7 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'https://mern-signin-up-demo.netlify.app/',
+  'https://mern-signin-up-demo.netlify.app',
   'https://mern-signin-signout.onrender.com'
 ];
 
