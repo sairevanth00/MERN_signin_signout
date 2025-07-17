@@ -15,9 +15,7 @@ dotenv.config();
 const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://mern-signin-up-demo.netlify.app',
-  'https://mern-signin-up-demo.netlify.app/',
-  'https://mern-signin-signout.onrender.com'
+  'https://mern-signin-up-demo.netlify.app/'
 ];
 
 app.use(cors({
@@ -34,7 +32,6 @@ app.use(cors({
 }));
 app.use(express.json());
 app.use(limiter);
-// app.use(mongoose)
 
 mongoose.connection.once('open', () => {
     console.log('✅ MongoDB connection is open.');
