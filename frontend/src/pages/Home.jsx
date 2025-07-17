@@ -33,7 +33,6 @@ const Home = () => {
       setOldPassword("");
       setNewPassword("");
     } catch (err) {
-      console.log("err: ", err);
       alert(err.response.data.message || "Failed to update password");
     }
   };

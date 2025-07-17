@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/authApi";
-// import { useEffect } from 'react';
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,21 +14,16 @@ const Login = () => {
     }
     try {
       const res = await loginUser({ email, password });
-      console.log("res: ", res);
       localStorage.setItem("token", res.data.token);
       navigate("/home");
     } catch (err) {
-      console.log("err: ", err);
-      alert(err?.response?.data?.message || "Login failed");
+      if(err?.response?.data?.message) {
+        return alert(err?.response?.data?.message + `, only ${err?.response?.data?.attemptsLeft} attempts left`);
+      } else {
+        return alert(err?.response?.data || "Login failed");
+      }
     }
   };
-
-  // useEffect(() => {
-  //     const token = localStorage.getItem('token');
-  //     if (token) {
-  //         navigate('/home');
-  //     }
-  // }, []);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen space-y-4">
