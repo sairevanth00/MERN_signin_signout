@@ -39,13 +39,13 @@ const login = async (req, res) => {
     const user = await User.findOne({ email });
     if(!user) return res.status(400).send({message: 'Email Not found!'});
     console.log('user: ', user)
-    if (!user || user.lockUntil > Date.now()) return res.status(400).send('Too many attempts. Try again later.');
+    if (!user || user.lockUntil > Date.now()) return res.status(400).send({message: 'Too many attempts. Try again later.'});
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
         user.loginAttempts += 1;
         if (user.loginAttempts >= 3) user.lockUntil = Date.now() + 3 * 60 * 60 * 1000;
         await user.save();
-        return res.status(400).send({message: 'Invalid credentials'});
+        return res.status(400).send({ message: 'Invalid credentials', attemptsLeft: 3 - user.loginAttempts});
     }
     user.loginAttempts = 0;
     user.lockUntil = null;

@@ -2,7 +2,6 @@ import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js';
 
 const getUserDetails = async (req, res) => {
-  console.log('req: ', req)
     const user = await User.findOne({ userId: req.user.userId }, '-password');
     res.send(user);
 };
